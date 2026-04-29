@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), DetailActivity::class.java)
             intent.putExtra("GAME_TITLE", "Black Myth: Wukong")
             intent.putExtra("GAME_PRICE", "Rp 599.000")
+            intent.putExtra("GAME_IMAGE", R.drawable.wukong)
             startActivity(intent)
         }
 
@@ -39,6 +40,7 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), DetailActivity::class.java)
             intent.putExtra("GAME_TITLE", "Grand Theft Auto VI")
             intent.putExtra("GAME_PRICE", "Coming Soon")
+            intent.putExtra("GAME_IMAGE", R.drawable.gta6)
             startActivity(intent)
         }
 
@@ -46,6 +48,7 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), DetailActivity::class.java)
             intent.putExtra("GAME_TITLE", "Hades")
             intent.putExtra("GAME_PRICE", "Rp 119.999")
+            intent.putExtra("GAME_IMAGE", R.drawable.hades)
             startActivity(intent)
         }
 
