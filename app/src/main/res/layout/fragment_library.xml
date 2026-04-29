@@ -88,7 +88,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@android:drawable/ic_menu_gallery" />
+                            android:src="@drawable/cyberpunk" />
                     </androidx.cardview.widget.CardView>
 
                     <LinearLayout
@@ -167,7 +167,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@android:drawable/ic_menu_gallery" />
+                            android:src="@drawable/persona5royal" />
                     </androidx.cardview.widget.CardView>
 
                     <LinearLayout
@@ -249,7 +249,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@android:drawable/ic_menu_gallery" />
+                            android:src="@drawable/monsterhunterworld" />
                     </androidx.cardview.widget.CardView>
 
                     <LinearLayout
@@ -328,7 +328,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@android:drawable/ic_menu_gallery" />
+                            android:src="@drawable/dreadout" />
                     </androidx.cardview.widget.CardView>
 
                     <LinearLayout
@@ -407,7 +407,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@android:drawable/ic_menu_gallery" />
+                            android:src="@drawable/coralisland" />
                     </androidx.cardview.widget.CardView>
 
                     <LinearLayout
