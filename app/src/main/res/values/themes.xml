@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.ArcadeaProject" parent="Base.Theme.ArcadeaProject" />
+
+    <!-- Splash Screen Theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logoarcadeatanpabg</item>
+        <item name="windowSplashScreenBackground">#8A2BE2</item>
+        <item name="postSplashScreenTheme">@style/Theme.ArcadeaProject</item>
+    </style>
 </resources>
