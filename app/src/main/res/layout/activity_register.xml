@@ -13,7 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/logoarcadea"
+        android:src="@drawable/logoarcadeatanpabg"
         android:contentDescription="App Logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
