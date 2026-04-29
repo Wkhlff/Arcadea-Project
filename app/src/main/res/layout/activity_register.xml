@@ -8,24 +8,35 @@
     android:padding="24dp"
     tools:context=".RegisterActivity">
 
+    <ImageView
+        android:id="@+id/iv_register_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logoarcadea"
+        android:contentDescription="App Logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Create Account"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/iv_register_logo" />
 
     <EditText
         android:id="@+id/et_register_username"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:background="#2A475E"
         android:hint="Username"
         android:inputType="textPersonName"

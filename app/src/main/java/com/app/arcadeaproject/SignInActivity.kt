@@ -6,9 +6,13 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Install Splash Screen before super.onCreate and setContentView
+        installSplashScreen()
+        
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
@@ -16,7 +20,6 @@ class SignInActivity : AppCompatActivity() {
         val tvGoToRegister = findViewById<TextView>(R.id.tv_go_to_register)
 
         btnSignIn.setOnClickListener {
-            // For now, any click will take the user to MainActivity
             Toast.makeText(this, "Welcome to Arcadea!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
