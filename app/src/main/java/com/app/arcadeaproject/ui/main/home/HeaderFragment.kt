@@ -14,7 +14,7 @@ class HeaderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_header_home, container, false)
+        val view = inflater.inflate(R.layout.home_fragment_header, container, false)
 
         // Logika untuk tombol Cart yang ada di header
         view.findViewById<View>(R.id.btn_cart)?.setOnClickListener {

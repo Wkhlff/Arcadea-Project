@@ -14,7 +14,7 @@
 
         <!-- SplashActivity diset sebagai Launcher agar muncul pertama kali -->
         <activity
-            android:name=".ui.main.SplashActivity"
+            android:name=".ui.main.Initial.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.main.SignInActivity" android:exported="false" />
-        <activity android:name=".ui.main.RegisterActivity" android:exported="false" />
+        <activity android:name=".ui.main.Initial.SignInActivity" android:exported="false" />
+        <activity android:name=".ui.main.Initial.RegisterActivity" android:exported="false" />
         <activity android:name=".ui.main.DetailActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" />
 

@@ -13,13 +13,13 @@ import androidx.fragment.app.Fragment
 import com.app.arcadeaproject.R
 import com.app.arcadeaproject.ui.main.DetailActivity
 
-class Card1Fragment : Fragment() {
+class Grid1Fragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_card1_home, container, false)
+        val view = inflater.inflate(R.layout.home_item_grid1, container, false)
 
         val cardFeatured = view.findViewById<CardView>(R.id.card_featured)
         val tvOriginalPrice = view.findViewById<TextView>(R.id.tv_featured_original_price)

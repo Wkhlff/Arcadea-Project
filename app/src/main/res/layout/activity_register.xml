@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="24dp"
-    tools:context=".ui.main.RegisterActivity">
+    tools:context=".ui.main.Initial.RegisterActivity">
 
     <ImageView
         android:id="@+id/iv_register_logo"

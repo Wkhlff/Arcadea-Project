@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main
+package com.app.arcadeaproject.ui.main.Initial
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.app.arcadeaproject.R
-import com.app.arcadeaproject.ui.main.SignInActivity
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

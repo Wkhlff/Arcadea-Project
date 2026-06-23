@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main.home
+package com.app.arcadeaproject.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.ui.main.home.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BottomFragment : Fragment() {
@@ -29,11 +30,9 @@ class BottomFragment : Fragment() {
         bottomNav.setOnItemSelectedListener { item ->
             val selectedFragment: Fragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
-                /*
                 R.id.nav_library -> LibraryFragment()
                 R.id.nav_social -> SocialFragment()
                 R.id.nav_profile -> ProfileFragment()
-                */
                 else -> HomeFragment()
             }
             loadFragment(selectedFragment)

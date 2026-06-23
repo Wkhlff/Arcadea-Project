@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main.home
+package com.app.arcadeaproject.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.app.arcadeaproject.R
 
-class HomeFragment : Fragment() {
+class SocialFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // HomeFragment sekarang hanya sebagai wadah (container) saja
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_social, container, false)
     }
 }

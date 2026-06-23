@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main
+package com.app.arcadeaproject.ui.main.Initial
 
 import android.content.Intent
 import android.os.Bundle

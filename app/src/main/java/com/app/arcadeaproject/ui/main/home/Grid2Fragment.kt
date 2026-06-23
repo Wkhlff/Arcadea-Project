@@ -11,13 +11,13 @@ import com.app.arcadeaproject.R
 import com.app.arcadeaproject.ui.adapter.Game
 import com.app.arcadeaproject.ui.adapter.GameAdapter
 
-class Card2Fragment : Fragment() {
+class Grid2Fragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_card2_home, container, false)
+        val view = inflater.inflate(R.layout.home_item_grid2, container, false)
 
         val rvPopular = view.findViewById<RecyclerView>(R.id.rv_popular_games)
 
