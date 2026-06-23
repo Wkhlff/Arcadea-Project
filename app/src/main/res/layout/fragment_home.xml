@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1B2838">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 1. Bagian Header (Discover, Search, Cart) -->
+        <include layout="@layout/fragment_header_home" />
+
+        <!-- 2. Bagian Card Besar (Featured) -->
+        <include layout="@layout/fragment_card1_home" />
+
+        <!-- 3. Bagian Card Kecil (Popular Games) -->
+        <include layout="@layout/fragment_card2_home" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
