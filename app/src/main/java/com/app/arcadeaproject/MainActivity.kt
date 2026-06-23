@@ -5,7 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.app.arcadeaproject.ui.main.HomeFragment
+import com.app.arcadeaproject.ui.main.home.BottomFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +23,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
+            // Gunakan BottomFragment sebagai entry point utama di MainActivity
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, HomeFragment())
+                .replace(R.id.fragmentContainer, BottomFragment())
                 .commit()
         }
     }
