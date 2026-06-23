@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main
+package com.app.arcadeaproject.ui.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.ui.main.DetailActivity
 
 data class Game(val title: String, val price: String, val imageResId: Int)
 

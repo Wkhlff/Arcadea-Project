@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.app.arcadeaproject.MainActivity
 import com.app.arcadeaproject.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
@@ -19,7 +18,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            // Berpindah ke SignInActivity bukan MainActivity
+            startActivity(Intent(this, SignInActivity::class.java))
             finish()
         }, 1500)
     }

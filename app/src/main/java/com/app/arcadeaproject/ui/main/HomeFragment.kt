@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.ui.adapter.Game
+import com.app.arcadeaproject.ui.adapter.GameAdapter
 
 class HomeFragment : Fragment() {
 
