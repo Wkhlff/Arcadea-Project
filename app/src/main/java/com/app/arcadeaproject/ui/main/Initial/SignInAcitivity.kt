@@ -7,8 +7,12 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.app.arcadeaproject.MainActivity
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.data.remote.ApiClient
+import com.app.arcadeaproject.data.remote.model.LoginRequest
+import kotlinx.coroutines.launch
 
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,16 +25,37 @@ class SignInActivity : AppCompatActivity() {
         val tvGoToRegister = findViewById<TextView>(R.id.tv_go_to_register)
 
         btnSignIn.setOnClickListener {
-            val email = etEmail.text.toString()
-            val password = etPassword.text.toString()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
 
-            if (email == "admin@gmail.com" && password == "admin1234") {
-                Toast.makeText(this, "Login Successful! Welcome admin", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            lifecycleScope.launch {
+                try {
+                    btnSignIn.isEnabled = false
+                    val response = ApiClient.instance.login(LoginRequest(email, password))
+
+                    if (response.isSuccessful) {
+                        val authResponse = response.body()
+                        if (authResponse?.success == true) {
+                            Toast.makeText(this@SignInActivity, "Login Successful!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this@SignInActivity, authResponse?.message ?: "Login Failed", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(this@SignInActivity, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this@SignInActivity, "Connection error: ${e.message}", Toast.LENGTH_SHORT).show()
+                } finally {
+                    btnSignIn.isEnabled = true
+                }
             }
         }
 
