@@ -1,70 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@color/background">
 
-    <ImageButton
-        android:id="@+id/btn_back_detail"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_menu_revert"
-        android:contentDescription="Back"
-        app:tint="#FFFFFF" />
-
-    <ImageView
-        android:id="@+id/iv_detail_cover"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/logo_arcadea" />
-
-    <TextView
-        android:id="@+id/tv_detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Black Myth: Wukong"
-        android:textColor="#FFFFFF"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textAlignment="center"/>
-
-    <TextView
-        android:id="@+id/tv_detail_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Rp 599.000"
-        android:textColor="#66C0F4"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btn_buy_now_detail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="#A44AFF"
-        android:text="Buy Now"
-        android:textAllCaps="false"
-        app:cornerRadius="8dp" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Add to Wishlist"
-        android:textAllCaps="false"
-        style="?attr/materialButtonOutlinedStyle"
-        app:strokeColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        app:cornerRadius="8dp" />
+        <ImageButton
+            android:id="@+id/btn_back_detail"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="Back"
+            app:tint="#FFFFFF" />
 
-</LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#00000000">
+
+            <ImageView
+                android:id="@+id/iv_detail_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo_arcadea" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Game Title"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_detail_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Rp 0"
+            android:textColor="#66C0F4"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Description"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_detail_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Game description goes here..."
+            android:textColor="#8F98A0"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp" />
+
+        <Button
+            android:id="@+id/btn_buy_now_detail"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#A44AFF"
+            android:text="Buy Now"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:text="Add to Wishlist"
+            android:textAllCaps="false"
+            style="?attr/materialButtonOutlinedStyle"
+            app:strokeColor="#FFFFFF"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
