@@ -7,9 +7,15 @@ data class GameResponse(
     @SerializedName("nama")
     val judul: String,
     @SerializedName("harga")
-    val harga: String,
+    val harga: Int,
     @SerializedName("gambar")
     val gambar: String, // URL gambar
     @SerializedName("deskripsi")
-    val deskripsi: String // Deskripsi game
+    val deskripsi: String?, // Deskripsi game
+    @SerializedName("persen_diskon")
+    val persenDiskon: Int,
+    @SerializedName("diskon_mulai")
+    val diskonMulai: String?,
+    @SerializedName("diskon_selesai")
+    val diskonSelesai: String?
 )

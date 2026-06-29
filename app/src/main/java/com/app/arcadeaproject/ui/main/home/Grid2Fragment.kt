@@ -23,7 +23,6 @@ class Grid2Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.home_item_grid2, container, false)
-
         val rvPopular = view.findViewById<RecyclerView>(R.id.rv_popular_games)
         
         gameAdapter = GameAdapter(emptyList())
@@ -35,7 +34,6 @@ class Grid2Fragment : Fragment() {
         }
 
         fetchGames()
-
         return view
     }
 
@@ -44,14 +42,13 @@ class Grid2Fragment : Fragment() {
             try {
                 val response = ApiClient.instance.getGames()
                 if (response.isSuccessful) {
-                    response.body()?.let { games ->
-                        gameAdapter.updateData(games)
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "Failed to fetch games: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    val allGames = response.body() ?: emptyList()
+                    // LOGIKA: Filter game yang TIDAK diskon (persenDiskon == 0)
+                    val nonDiscountedGames = allGames.filter { it.persenDiskon == 0 }
+                    gameAdapter.updateData(nonDiscountedGames)
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
             }
         }
     }

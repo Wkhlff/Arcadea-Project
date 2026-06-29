@@ -6,41 +6,114 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.data.remote.ApiClient
+import com.app.arcadeaproject.data.remote.model.GameResponse
 import com.app.arcadeaproject.ui.main.DetailActivity
+import com.bumptech.glide.Glide
+import kotlinx.coroutines.launch
+import java.text.NumberFormat
+import java.util.Locale
 
 class Grid1Fragment : Fragment() {
+
+    private var _view: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.home_item_grid1, container, false)
+        _view = inflater.inflate(R.layout.home_item_grid1, container, false)
+        
+        // Sembunyikan root layout sampai data berhasil difilter
+        _view?.visibility = View.GONE
 
-        val cardFeatured = view.findViewById<CardView>(R.id.card_featured)
+        fetchFeaturedGame()
+
+        return _view
+    }
+
+    private fun fetchFeaturedGame() {
+        lifecycleScope.launch {
+            try {
+                val response = ApiClient.instance.getGames()
+                if (response.isSuccessful) {
+                    val games = response.body() ?: emptyList()
+                    // LOGIKA: Ambil game pertama yang memiliki diskon > 0
+                    val discountedGame = games.find { it.persenDiskon > 0 }
+                    
+                    if (discountedGame != null) {
+                        _view?.visibility = View.VISIBLE
+                        bindData(discountedGame)
+                    } else {
+                        // Jika tidak ada game diskon, sembunyikan section ini
+                        _view?.visibility = View.GONE
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun bindData(game: GameResponse) {
+        val view = _view ?: return
+        
+        val ivFeaturedImg = view.findViewById<ImageView>(R.id.iv_featured_img)
+        val tvTitle = view.findViewById<TextView>(R.id.tv_featured_title)
+        val tvPrice = view.findViewById<TextView>(R.id.tv_featured_price)
         val tvOriginalPrice = view.findViewById<TextView>(R.id.tv_featured_original_price)
-        val btnWishlist = view.findViewById<View>(R.id.btn_wishlist)
+        val tvDiscountBadge = view.findViewById<TextView>(R.id.tv_discount_badge)
+        val cardFeatured = view.findViewById<CardView>(R.id.card_featured)
+        val btnBuy = view.findViewById<Button>(R.id.btn_buy_now)
 
-        // Efek coret harga asli
-        tvOriginalPrice?.paintFlags = (tvOriginalPrice?.paintFlags ?: 0) or Paint.STRIKE_THRU_TEXT_FLAG
+        tvTitle.text = game.judul
+        
+        val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatter.maximumFractionDigits = 0
 
-        cardFeatured?.setOnClickListener {
+        // Hitung harga setelah diskon
+        val diskon = (game.harga * game.persenDiskon) / 100
+        val hargaFinal = game.harga - diskon
+
+        tvPrice.text = formatter.format(hargaFinal).replace("Rp", "Rp ")
+        
+        // Tampilkan harga asli dengan coretan
+        tvOriginalPrice.visibility = View.VISIBLE
+        tvOriginalPrice.text = formatter.format(game.harga).replace("Rp", "Rp ")
+        tvOriginalPrice.paintFlags = tvOriginalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        
+        // Tampilkan badge diskon
+        tvDiscountBadge.visibility = View.VISIBLE
+        tvDiscountBadge.text = String.format("-%d%%", game.persenDiskon)
+
+        Glide.with(this)
+            .load(game.gambar)
+            .placeholder(R.drawable.logo_arcadea)
+            .into(ivFeaturedImg)
+
+        val clickListener = View.OnClickListener {
             val intent = Intent(requireActivity(), DetailActivity::class.java).apply {
-                putExtra("GAME_TITLE", "Black Myth: Wukong")
-                putExtra("GAME_PRICE", "Rp 599.000")
-                putExtra("GAME_IMAGE", R.drawable.logo_arcadea)
+                putExtra("GAME_TITLE", game.judul)
+                putExtra("GAME_PRICE", tvPrice.text.toString())
+                putExtra("GAME_IMAGE_URL", game.gambar)
+                putExtra("GAME_DESCRIPTION", game.deskripsi)
             }
             startActivity(intent)
         }
+        
+        cardFeatured.setOnClickListener(clickListener)
+        btnBuy.setOnClickListener(clickListener)
+    }
 
-        btnWishlist?.setOnClickListener {
-            Toast.makeText(requireContext(), "Opening Wishlist...", Toast.LENGTH_SHORT).show()
-        }
-
-        return view
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _view = null
     }
 }
