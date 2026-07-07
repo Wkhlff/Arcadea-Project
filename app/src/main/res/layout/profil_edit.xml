@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1B2838"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Header -->
+        <ImageButton
+            android:id="@+id/btn_back_edit_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            android:rotation="180"
+            app:layout_constraintBottom_toBottomOf="@id/tv_edit_profile_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_edit_profile_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Edit Profile"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/btn_back_edit_profile"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Avatar Section -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_edit_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_profile_header">
+
+            <FrameLayout
+                android:id="@+id/frame_avatar_container"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_edit_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle_avatar_bg"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/tv_avatar_initial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="U"
+                    android:textColor="#FFFFFF"
+                    android:textSize="48sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/btn_change_avatar"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/circle_bg_purple"
+                android:padding="8dp"
+                android:src="@android:drawable/ic_menu_camera"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="#FFFFFF" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Form Section -->
+        <LinearLayout
+            android:id="@+id/layout_edit_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/layout_edit_avatar">
+
+            <!-- Full Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="FULL NAME"
+                android:textColor="#8F98A0"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <EditText
+                android:id="@+id/et_edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Your full name"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#556779"
+                android:textSize="15sp" />
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="EMAIL ADDRESS"
+                android:textColor="#8F98A0"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <EditText
+                android:id="@+id/et_edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Your email address"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#556779"
+                android:textSize="15sp" />
+
+            <!-- Bio -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="BIO"
+                android:textColor="#8F98A0"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <EditText
+                android:id="@+id/et_edit_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:gravity="top"
+                android:hint="Write something about yourself..."
+                android:inputType="textMultiLine"
+                android:minHeight="120dp"
+                android:padding="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#556779"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btn_save_profile"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#A44AFF"
+            android:text="Save Changes"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_edit_form" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

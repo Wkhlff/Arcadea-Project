@@ -42,10 +42,13 @@ class SignInActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         if (authResponse?.success == true) {
-                            // Simpan nama user ke SharedPreferences
+                            // Simpan data user ke SharedPreferences
                             val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                             with(sharedPref.edit()) {
+                                putInt("user_id", authResponse.user?.id ?: -1)
                                 putString("user_name", authResponse.user?.nama ?: "User")
+                                putString("user_email", authResponse.user?.email ?: "")
+                                putString("user_image", authResponse.user?.gambar ?: "")
                                 apply()
                             }
 
