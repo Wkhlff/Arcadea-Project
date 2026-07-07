@@ -1,5 +1,6 @@
 package com.app.arcadeaproject.ui.main.Initial
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -41,6 +42,13 @@ class SignInActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         if (authResponse?.success == true) {
+                            // Simpan nama user ke SharedPreferences
+                            val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                            with(sharedPref.edit()) {
+                                putString("user_name", authResponse.user?.nama ?: "User")
+                                apply()
+                            }
+
                             Toast.makeText(this@SignInActivity, "Login Successful!", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@SignInActivity, MainActivity::class.java)
                             startActivity(intent)
