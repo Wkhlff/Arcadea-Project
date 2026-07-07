@@ -13,8 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.app.arcadeaproject.R
 import com.app.arcadeaproject.data.remote.ApiClient
-import com.app.arcadeaproject.data.remote.model.AuthResponse
-import com.app.arcadeaproject.data.remote.model.UserData
 import com.app.arcadeaproject.ui.main.Initial.SignInActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
