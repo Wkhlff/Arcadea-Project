@@ -17,19 +17,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- 2. Wadah untuk Card1Fragment (Featured) -->
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/container_card1"
-            android:name="com.app.arcadeaproject.ui.main.home.Grid1Fragment"
+        <!-- Wadah Baru untuk Search Results (Hidden by default) -->
+        <FrameLayout
+            android:id="@+id/container_search_results"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
-        <!-- 3. Wadah untuk Card2Fragment (Popular Games) -->
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/container_card2"
-            android:name="com.app.arcadeaproject.ui.main.home.Grid2Fragment"
+        <!-- Wadah Konten Utama (Home) -->
+        <LinearLayout
+            android:id="@+id/layout_home_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 2. Wadah untuk Card1Fragment (Featured) -->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/container_card1"
+                android:name="com.app.arcadeaproject.ui.main.home.Grid1Fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- 3. Wadah untuk Card2Fragment (Popular Games) -->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/container_card2"
+                android:name="com.app.arcadeaproject.ui.main.home.Grid2Fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
 

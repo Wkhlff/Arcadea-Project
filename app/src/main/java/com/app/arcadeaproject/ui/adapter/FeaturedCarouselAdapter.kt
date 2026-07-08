@@ -38,7 +38,7 @@ class FeaturedCarouselAdapter(private var games: List<GameResponse>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_featured_carousel, parent, false)
+            .inflate(R.layout.home_item_featured_carousel, parent, false)
         return CarouselViewHolder(view)
     }
 

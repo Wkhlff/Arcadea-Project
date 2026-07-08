@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main
+package com.app.arcadeaproject.ui.main.profile
 
 import android.content.Context
 import android.content.Intent
@@ -35,7 +35,7 @@ class ProfileFragment : Fragment() {
         tvUsername = view.findViewById(R.id.tv_profile_username)
         tvInitial = view.findViewById(R.id.tv_profile_initial)
         tvGamesOwned = view.findViewById(R.id.tv_profile_games_owned)
-        
+
         loadProfileData()
 
         val btnBack = view.findViewById<TextView>(R.id.btn_back_profile)

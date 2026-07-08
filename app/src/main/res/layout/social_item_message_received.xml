@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:orientation="vertical"
+    android:paddingVertical="4dp">
+
+    <TextView
+        android:id="@+id/tv_message_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/bg_message_received"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:text="Received message content"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tv_time_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="12:00"
+        android:textColor="#8F98A0"
+        android:textSize="10sp" />
+</LinearLayout>

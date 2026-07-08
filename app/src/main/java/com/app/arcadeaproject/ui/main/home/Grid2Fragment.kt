@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -43,7 +42,7 @@ class Grid2Fragment : Fragment() {
                 val response = ApiClient.instance.getGames()
                 if (response.isSuccessful) {
                     val allGames = response.body() ?: emptyList()
-                    // LOGIKA: Filter game yang TIDAK diskon (persenDiskon == 0)
+                    // Menampilkan game yang tidak diskon (Populer)
                     val nonDiscountedGames = allGames.filter { it.persenDiskon == 0 }
                     gameAdapter.updateData(nonDiscountedGames)
                 }

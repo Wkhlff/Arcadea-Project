@@ -1,22 +1,10 @@
 package com.app.arcadeaproject.data.remote
 
-import com.app.arcadeaproject.data.remote.model.AuthResponse
-import com.app.arcadeaproject.data.remote.model.CheckoutRequest
-import com.app.arcadeaproject.data.remote.model.CheckoutResponse
-import com.app.arcadeaproject.data.remote.model.GameResponse
-import com.app.arcadeaproject.data.remote.model.LibraryResponse
-import com.app.arcadeaproject.data.remote.model.LoginRequest
-import com.app.arcadeaproject.data.remote.model.RegisterRequest
+import com.app.arcadeaproject.data.remote.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Part
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -47,4 +35,24 @@ interface ApiService {
 
     @GET("library/{id}")
     suspend fun getLibrary(@Path("id") userId: Int): Response<LibraryResponse>
+
+    // --- Friend Routes ---
+    @GET("friends/search")
+    suspend fun searchUser(@Query("nama") nama: String): Response<SearchUserResponse>
+
+    @POST("friends")
+    suspend fun addFriend(@Body request: Map<String, Int>): Response<GeneralResponse>
+
+    @GET("friends/{id}")
+    suspend fun getFriends(@Path("id") userId: Int): Response<SearchUserResponse>
+
+    // --- Message Routes ---
+    @POST("messages")
+    suspend fun sendMessage(@Body request: MessageRequest): Response<GeneralResponse>
+
+    @GET("messages/{sender}/{receiver}")
+    suspend fun getMessages(
+        @Path("sender") senderId: Int,
+        @Path("receiver") receiverId: Int
+    ): Response<MessageResponse>
 }

@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main
+package com.app.arcadeaproject.ui.main.cart
 
 import android.content.Context
 import android.content.Intent
@@ -15,6 +15,7 @@ import com.app.arcadeaproject.data.remote.ApiClient
 import com.app.arcadeaproject.data.remote.model.CheckoutRequest
 import com.app.arcadeaproject.databinding.CartFragmentBinding
 import com.app.arcadeaproject.ui.adapter.CartAdapter
+import com.app.arcadeaproject.ui.main.cart.CheckoutSuccessActivity
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
@@ -38,7 +39,7 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dbHelper = DatabaseHelper(requireContext())
-        
+
         val sharedPref = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         userId = sharedPref.getInt("user_id", -1)
 
@@ -74,11 +75,11 @@ class CartFragment : Fragment() {
                 val response = ApiClient.instance.checkout(request)
                 if (response.isSuccessful && response.body()?.success == true) {
                     dbHelper.clearCart(userId)
-                    
+
                     // Navigate to CheckoutSuccessActivity instead of just showing a toast
                     val intent = Intent(requireContext(), CheckoutSuccessActivity::class.java)
                     startActivity(intent)
-                    
+
                     // Optional: remove CartFragment from backstack so back button doesn't return to empty cart
                     parentFragmentManager.popBackStack()
 
@@ -116,13 +117,13 @@ class CartFragment : Fragment() {
         } else {
             binding.tvEmptyCart.visibility = View.GONE
             binding.layoutCheckout.visibility = View.VISIBLE
-            
+
             var totalPrice = 0L
             for (item in items) {
                 val cleanPrice = item.price.replace(Regex("[^0-9]"), "")
                 totalPrice += cleanPrice.toLongOrNull() ?: 0L
             }
-            
+
             val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
             formatter.maximumFractionDigits = 0
             binding.tvTotalPrice.text = formatter.format(totalPrice).replace("Rp", "Rp ")

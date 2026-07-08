@@ -1,4 +1,4 @@
-package com.app.arcadeaproject.ui.main
+package com.app.arcadeaproject.ui.main.profile
 
 import android.content.Context
 import android.net.Uri
@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.app.arcadeaproject.R
 import com.app.arcadeaproject.data.remote.ApiClient
-import com.app.arcadeaproject.data.remote.ApiService
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -35,7 +34,7 @@ class ProfileEditActivity : AppCompatActivity() {
     private lateinit var ivAvatar: ImageView
     private lateinit var tvInitial: TextView
     private lateinit var btnSave: Button
-    
+
     private var selectedImageUri: Uri? = null
 
     // Launcher untuk memilih gambar dari galeri
@@ -72,14 +71,14 @@ class ProfileEditActivity : AppCompatActivity() {
         btnSave.setOnClickListener {
             saveProfileChanges()
         }
-        
+
         findViewById<ImageView>(R.id.btn_change_avatar).setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
     }
 
     private fun loadCurrentData() {
-        val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
         val name = sharedPref.getString("user_name", "")
         val email = sharedPref.getString("user_email", "")
         val bio = sharedPref.getString("user_bio", "")
@@ -88,7 +87,7 @@ class ProfileEditActivity : AppCompatActivity() {
         etName.setText(name)
         etEmail.setText(email)
         etBio.setText(bio)
-        
+
         updateAvatarUI(name, imageUrl)
     }
 
@@ -120,7 +119,7 @@ class ProfileEditActivity : AppCompatActivity() {
             return
         }
 
-        val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
         val userId = sharedPref.getInt("user_id", -1)
 
         if (userId == -1) return
@@ -133,7 +132,7 @@ class ProfileEditActivity : AppCompatActivity() {
                 val namaBody = newName.toRequestBody("text/plain".toMediaType())
                 val emailBody = newEmail.toRequestBody("text/plain".toMediaType())
                 val bioBody = newBio.toRequestBody("text/plain".toMediaType())
-                
+
                 var imagePart: MultipartBody.Part? = null
                 selectedImageUri?.let { uri ->
                     val file = uriToFile(uri, this@ProfileEditActivity)
@@ -178,7 +177,7 @@ class ProfileEditActivity : AppCompatActivity() {
     private fun uriToFile(uri: Uri, context: Context): File? {
         val contentResolver = context.contentResolver
         val tempFile = File(context.cacheDir, getFileName(uri, context))
-        
+
         return try {
             val inputStream = contentResolver.openInputStream(uri) ?: return null
             val outputStream = FileOutputStream(tempFile)

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.app.arcadeaproject.R
 import com.app.arcadeaproject.ui.main.home.HomeFragment
+import com.app.arcadeaproject.ui.main.profile.ProfileFragment
+import com.app.arcadeaproject.ui.main.social.SocialFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BottomFragment : Fragment() {
