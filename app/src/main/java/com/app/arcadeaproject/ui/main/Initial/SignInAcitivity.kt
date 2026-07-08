@@ -42,17 +42,25 @@ class SignInActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         if (authResponse?.success == true) {
+                            val user = authResponse.user
                             // Simpan data user ke SharedPreferences
                             val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                             with(sharedPref.edit()) {
-                                putInt("user_id", authResponse.user?.id ?: -1)
-                                putString("user_name", authResponse.user?.nama ?: "User")
-                                putString("user_email", authResponse.user?.email ?: "")
-                                putString("user_image", authResponse.user?.gambar ?: "")
+                                putInt("user_id", user?.id ?: -1)
+                                putString("user_name", user?.nama ?: "User")
+                                putString("user_email", user?.email ?: "")
+                                putString("user_image", user?.gambar ?: "")
                                 apply()
                             }
 
                             Toast.makeText(this@SignInActivity, "Login Successful!", Toast.LENGTH_SHORT).show()
+                            
+                            // IMPLEMENTASI BROADCAST RECEIVER (SIMULASI)
+                            // Mengirimkan siaran bahwa login berhasil
+                            val broadcastIntent = Intent("ACTION_LOGIN_SUCCESS")
+                            broadcastIntent.putExtra("USER_NAME", user?.nama ?: "User")
+                            sendBroadcast(broadcastIntent)
+
                             val intent = Intent(this@SignInActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
