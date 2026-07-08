@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.ui.main.CartFragment
 
 class HeaderFragment : Fragment() {
 
@@ -20,16 +20,17 @@ class HeaderFragment : Fragment() {
 
         val tvHello = view.findViewById<TextView>(R.id.tv_hello)
         
-        // Ambil nama dari SharedPreferences
         val sharedPref = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         val userName = sharedPref.getString("user_name", "user")
         
-        // Update text Hello, [Nama]
         tvHello.text = "Hello, $userName"
 
-        // Logika untuk tombol Cart yang ada di header
         view.findViewById<View>(R.id.btn_cart)?.setOnClickListener {
-            Toast.makeText(requireContext(), "Opening Cart...", Toast.LENGTH_SHORT).show()
+            // Gunakan supportFragmentManager dari Activity agar bisa menemukan fragmentContainer
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, CartFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return view

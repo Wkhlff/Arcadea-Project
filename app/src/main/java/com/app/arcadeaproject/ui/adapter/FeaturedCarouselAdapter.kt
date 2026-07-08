@@ -1,5 +1,6 @@
 package com.app.arcadeaproject.ui.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -8,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.data.local.DatabaseHelper
 import com.app.arcadeaproject.data.remote.model.GameResponse
 import com.app.arcadeaproject.ui.main.DetailActivity
 import com.bumptech.glide.Glide
@@ -41,6 +44,8 @@ class FeaturedCarouselAdapter(private var games: List<GameResponse>) :
 
     override fun onBindViewHolder(holder: CarouselViewHolder, position: Int) {
         val game = games[position]
+        val context = holder.itemView.context
+        val dbHelper = DatabaseHelper(context)
         
         holder.tvTitle.text = game.judul
         
@@ -49,8 +54,9 @@ class FeaturedCarouselAdapter(private var games: List<GameResponse>) :
 
         val diskon = (game.harga * game.persenDiskon) / 100
         val hargaFinal = game.harga - diskon
+        val formattedPrice = formatter.format(hargaFinal).replace("Rp", "Rp ")
 
-        holder.tvPrice.text = formatter.format(hargaFinal).replace("Rp", "Rp ")
+        holder.tvPrice.text = formattedPrice
         
         holder.tvOriginalPrice.visibility = View.VISIBLE
         holder.tvOriginalPrice.text = formatter.format(game.harga).replace("Rp", "Rp ")
@@ -59,23 +65,42 @@ class FeaturedCarouselAdapter(private var games: List<GameResponse>) :
         holder.tvDiscountBadge.visibility = View.VISIBLE
         holder.tvDiscountBadge.text = String.format("-%d%%", game.persenDiskon)
 
-        Glide.with(holder.itemView.context)
+        Glide.with(context)
             .load(game.gambar)
             .placeholder(R.drawable.logo_arcadea)
             .into(holder.ivFeaturedImg)
 
-        val clickListener = View.OnClickListener {
-            val intent = Intent(it.context, DetailActivity::class.java).apply {
+        // Klik Item untuk Detail
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, DetailActivity::class.java).apply {
+                putExtra("GAME_ID", game.id)
                 putExtra("GAME_TITLE", game.judul)
-                putExtra("GAME_PRICE", holder.tvPrice.text.toString())
+                putExtra("GAME_PRICE", formattedPrice)
                 putExtra("GAME_IMAGE_URL", game.gambar)
                 putExtra("GAME_DESCRIPTION", game.deskripsi)
             }
-            it.context.startActivity(intent)
+            context.startActivity(intent)
         }
-        
-        holder.itemView.setOnClickListener(clickListener)
-        holder.btnBuy.setOnClickListener(clickListener)
+
+        // Klik Button untuk Add To Cart
+        holder.btnBuy.setOnClickListener {
+            val sharedPref = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+            val userId = sharedPref.getInt("user_id", -1)
+
+            if (userId != -1) {
+                dbHelper.addToCart(
+                    userId, 
+                    game.id, 
+                    game.judul, 
+                    formattedPrice, 
+                    game.gambar, 
+                    game.deskripsi ?: ""
+                )
+                Toast.makeText(context, "${game.judul} added to Cart", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Please login first", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun getItemCount(): Int = games.size

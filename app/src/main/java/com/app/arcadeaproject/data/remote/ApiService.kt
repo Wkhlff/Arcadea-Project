@@ -1,10 +1,12 @@
 package com.app.arcadeaproject.data.remote
 
 import com.app.arcadeaproject.data.remote.model.AuthResponse
+import com.app.arcadeaproject.data.remote.model.CheckoutRequest
+import com.app.arcadeaproject.data.remote.model.CheckoutResponse
 import com.app.arcadeaproject.data.remote.model.GameResponse
+import com.app.arcadeaproject.data.remote.model.LibraryResponse
 import com.app.arcadeaproject.data.remote.model.LoginRequest
 import com.app.arcadeaproject.data.remote.model.RegisterRequest
-import com.app.arcadeaproject.data.remote.model.UserData
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -39,4 +41,10 @@ interface ApiService {
         @Part("bio") bio: RequestBody,
         @Part foto_profile: MultipartBody.Part?
     ): Response<AuthResponse>
+
+    @POST("checkout")
+    suspend fun checkout(@Body request: CheckoutRequest): Response<CheckoutResponse>
+
+    @GET("library/{id}")
+    suspend fun getLibrary(@Path("id") userId: Int): Response<LibraryResponse>
 }

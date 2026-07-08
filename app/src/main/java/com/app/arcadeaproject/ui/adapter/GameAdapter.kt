@@ -72,11 +72,15 @@ class GameAdapter(
             .into(holder.ivGame)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(it.context, DetailActivity::class.java)
-            intent.putExtra("GAME_TITLE", game.judul)
-            intent.putExtra("GAME_PRICE", holder.tvPrice.text.toString())
-            intent.putExtra("GAME_IMAGE_URL", game.gambar)
-            intent.putExtra("GAME_DESCRIPTION", game.deskripsi)
+            val intent = Intent(it.context, DetailActivity::class.java).apply {
+                putExtra("GAME_ID", game.id)
+                putExtra("GAME_TITLE", game.judul)
+                putExtra("GAME_PRICE", holder.tvPrice.text.toString())
+                putExtra("GAME_RAW_PRICE", game.harga)
+                putExtra("GAME_IMAGE_URL", game.gambar)
+                putExtra("GAME_DESCRIPTION", game.deskripsi)
+                putExtra("GAME_DISCOUNT", game.persenDiskon)
+            }
             it.context.startActivity(intent)
         }
     }

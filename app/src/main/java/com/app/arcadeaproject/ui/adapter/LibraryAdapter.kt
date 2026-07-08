@@ -9,15 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.arcadeaproject.R
+import com.app.arcadeaproject.data.remote.model.GameResponse
+import com.bumptech.glide.Glide
 
-data class LibraryGame(
-    val title: String,
-    val playedHours: String,
-    val lastPlayed: String,
-    val imageResId: Int
-)
-
-class LibraryAdapter(private val games: List<LibraryGame>) :
+class LibraryAdapter(private var games: List<GameResponse>) :
     RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
 
     class LibraryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,6 +23,11 @@ class LibraryAdapter(private val games: List<LibraryGame>) :
         val btnPlay: Button = view.findViewById(R.id.btn_library_play)
     }
 
+    fun updateData(newGames: List<GameResponse>) {
+        this.games = newGames
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.library_item_card, parent, false)
@@ -36,13 +36,20 @@ class LibraryAdapter(private val games: List<LibraryGame>) :
 
     override fun onBindViewHolder(holder: LibraryViewHolder, position: Int) {
         val game = games[position]
-        holder.tvTitle.text = game.title
-        holder.tvPlayedHours.text = game.playedHours
-        holder.tvLastPlayed.text = game.lastPlayed
-        holder.ivGame.setImageResource(game.imageResId)
+        holder.tvTitle.text = game.judul
+
+        // Since backend library might not provide hours/last played yet,
+        // we can use placeholder text or hide them.
+        holder.tvPlayedHours.text = "Ready to play"
+        holder.tvLastPlayed.text = "Installed"
+
+        Glide.with(holder.itemView.context)
+            .load(game.gambar)
+            .placeholder(R.drawable.logo_arcadea)
+            .into(holder.ivGame)
 
         holder.btnPlay.setOnClickListener {
-            Toast.makeText(it.context, "Launching ${game.title}...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(it.context, "Launching ${game.judul}...", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -74,17 +74,38 @@
                 android:textColor="#8F98A0"
                 android:textSize="12sp" />
 
-            <Button
-                android:id="@+id/btn_library_play"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="#A44AFF"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="▷ Play"
-                android:textAllCaps="false"
-                app:cornerRadius="8dp" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_library_play"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:backgroundTint="#A44AFF"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="▷ Play"
+                    android:textAllCaps="false"
+                    app:cornerRadius="8dp" />
+
+                <Button
+                    android:id="@+id/btn_library_refund"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:backgroundTint="#FF4B4B"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Refund"
+                    android:textAllCaps="false"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
