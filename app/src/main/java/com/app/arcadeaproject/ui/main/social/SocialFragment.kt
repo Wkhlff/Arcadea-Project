@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -16,19 +17,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.arcadeaproject.R
 import com.app.arcadeaproject.data.remote.ApiClient
+import com.app.arcadeaproject.data.remote.model.Post
+import com.app.arcadeaproject.ui.adapter.CommunityAdapter
 import com.app.arcadeaproject.ui.adapter.FriendsAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class SocialFragment : Fragment() {
 
-    private lateinit var rvFriends: RecyclerView
+    private lateinit var rvSocial: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private lateinit var tvNoFriends: TextView
-    private lateinit var adapter: FriendsAdapter
+    private lateinit var tvEmptyState: TextView
+    private lateinit var etSearch: EditText
+    
+    private lateinit var friendsAdapter: FriendsAdapter
+    private lateinit var communityAdapter: CommunityAdapter
 
     private lateinit var btnTabFriends: Button
     private lateinit var btnTabCommunity: Button
+    
+    private var currentTab = "friends"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +44,10 @@ class SocialFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_social, container, false)
 
-        rvFriends = view.findViewById(R.id.rv_friends_list)
+        rvSocial = view.findViewById(R.id.rv_friends_list)
         progressBar = view.findViewById(R.id.progress_bar_social)
-        tvNoFriends = view.findViewById(R.id.tv_no_friends)
+        tvEmptyState = view.findViewById(R.id.tv_no_friends)
+        etSearch = view.findViewById(R.id.et_search_friends)
 
         btnTabFriends = view.findViewById(R.id.btn_tab_friends)
         btnTabCommunity = view.findViewById(R.id.btn_tab_community)
@@ -68,15 +77,23 @@ class SocialFragment : Fragment() {
 
     private fun setupTabs() {
         btnTabFriends.setOnClickListener {
-            updateTabUI(btnTabFriends)
-            loadFriendsList()
+            if (currentTab != "friends") {
+                currentTab = "friends"
+                updateTabUI(btnTabFriends)
+                etSearch.visibility = View.VISIBLE
+                etSearch.hint = "Search friends..."
+                rvSocial.adapter = friendsAdapter
+                loadFriendsList()
+            }
         }
         btnTabCommunity.setOnClickListener {
-            updateTabUI(btnTabCommunity)
-            adapter.updateData(emptyList())
-            tvNoFriends.text = "Community feature coming soon"
-            tvNoFriends.visibility = View.VISIBLE
-            rvFriends.visibility = View.GONE
+            if (currentTab != "community") {
+                currentTab = "community"
+                updateTabUI(btnTabCommunity)
+                etSearch.visibility = View.GONE
+                rvSocial.adapter = communityAdapter
+                loadCommunityPosts()
+            }
         }
     }
 
@@ -92,7 +109,7 @@ class SocialFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = FriendsAdapter(emptyList()) { friend ->
+        friendsAdapter = FriendsAdapter(emptyList()) { friend ->
             val chatFragment = ChatFragment().apply {
                 arguments = Bundle().apply {
                     putInt("receiver_id", friend.id)
@@ -105,8 +122,11 @@ class SocialFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        rvFriends.layoutManager = LinearLayoutManager(requireContext())
-        rvFriends.adapter = adapter
+        
+        communityAdapter = CommunityAdapter(emptyList())
+        
+        rvSocial.layoutManager = LinearLayoutManager(requireContext())
+        rvSocial.adapter = friendsAdapter
     }
 
     private fun loadFriendsList() {
@@ -121,8 +141,8 @@ class SocialFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 progressBar.visibility = View.VISIBLE
-                rvFriends.visibility = View.GONE
-                tvNoFriends.visibility = View.GONE
+                rvSocial.visibility = View.GONE
+                tvEmptyState.visibility = View.GONE
 
                 val response = ApiClient.instance.getFriends(userId)
 
@@ -130,15 +150,15 @@ class SocialFragment : Fragment() {
                     val body = response.body()!!
                     if (body.success) {
                         val friends = body.friends ?: emptyList()
-                        adapter.updateData(friends)
+                        friendsAdapter.updateData(friends)
 
                         if (friends.isEmpty()) {
-                            tvNoFriends.text = "No friends yet"
-                            tvNoFriends.visibility = View.VISIBLE
-                            rvFriends.visibility = View.GONE
+                            tvEmptyState.text = "No friends yet"
+                            tvEmptyState.visibility = View.VISIBLE
+                            rvSocial.visibility = View.GONE
                         } else {
-                            tvNoFriends.visibility = View.GONE
-                            rvFriends.visibility = View.VISIBLE
+                            tvEmptyState.visibility = View.GONE
+                            rvSocial.visibility = View.VISIBLE
                         }
                     } else {
                         Toast.makeText(requireContext(), "Backend error: ${body.success}", Toast.LENGTH_SHORT).show()
@@ -153,5 +173,22 @@ class SocialFragment : Fragment() {
                 progressBar.visibility = View.GONE
             }
         }
+    }
+
+    private fun loadCommunityPosts() {
+        progressBar.visibility = View.VISIBLE
+        tvEmptyState.visibility = View.GONE
+        
+        // Dummy data based on provided screenshots
+        val dummyPosts = listOf(
+            Post(1, "Yomandiguna", "Cyberpunk 2077", "Night City is breathtaking!", R.drawable.ic_launcher_foreground, 420, 24),
+            Post(2, "Khalif", "GTA V", "Finally got the new car!", R.drawable.ic_launcher_foreground, 156, 10),
+            Post(3, "Mbut", "Dota 2", "Road to Immortal starts now.", R.drawable.ic_launcher_foreground, 89, 45)
+        )
+        
+        communityAdapter.updateData(dummyPosts)
+        
+        progressBar.visibility = View.GONE
+        rvSocial.visibility = View.VISIBLE
     }
 }
