@@ -179,11 +179,11 @@ class SocialFragment : Fragment() {
         progressBar.visibility = View.VISIBLE
         tvEmptyState.visibility = View.GONE
         
-        // Dummy data based on provided screenshots
+        // Dummy data
         val dummyPosts = listOf(
-            Post(1, "Yomandiguna", "Cyberpunk 2077", "Night City is breathtaking!", R.drawable.ic_launcher_foreground, 420, 24),
-            Post(2, "Khalif", "GTA V", "Finally got the new car!", R.drawable.ic_launcher_foreground, 156, 10),
-            Post(3, "Mbut", "Dota 2", "Road to Immortal starts now.", R.drawable.ic_launcher_foreground, 89, 45)
+            Post(1, "Yomandiguna", "Cyberpunk 2077", "Night City is breathtaking!", R.drawable.cyberpunk2077, 420, 24),
+            Post(2, "Khalif", "GTA V", "Finally got the new car!", R.drawable.gtav, 156, 10),
+            Post(3, "Mbut", "Dota 2", "Road to Immortal starts now.", R.drawable.dota2, 89, 45)
         )
         
         communityAdapter.updateData(dummyPosts)
