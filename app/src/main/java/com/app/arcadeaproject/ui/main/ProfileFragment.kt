@@ -23,6 +23,7 @@ class ProfileFragment : Fragment() {
     private lateinit var ivAvatar: ImageView
     private lateinit var tvUsername: TextView
     private lateinit var tvInitial: TextView
+    private lateinit var tvGamesOwned: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +34,7 @@ class ProfileFragment : Fragment() {
         ivAvatar = view.findViewById(R.id.iv_profile_avatar)
         tvUsername = view.findViewById(R.id.tv_profile_username)
         tvInitial = view.findViewById(R.id.tv_profile_initial)
+        tvGamesOwned = view.findViewById(R.id.tv_profile_games_owned)
         
         loadProfileData()
 
@@ -80,10 +82,11 @@ class ProfileFragment : Fragment() {
 
         if (userId != -1) {
             lifecycleScope.launch {
+                // Load Profile Info
                 try {
-                    val response = ApiClient.instance.getProfile(userId)
-                    if (response.isSuccessful && response.body()?.success == true) {
-                        val user = response.body()?.user
+                    val profileResponse = ApiClient.instance.getProfile(userId)
+                    if (profileResponse.isSuccessful && profileResponse.body()?.success == true) {
+                        val user = profileResponse.body()?.user
                         if (user != null) {
                             with(sharedPref.edit()) {
                                 putString("user_name", user.nama)
@@ -98,6 +101,17 @@ class ProfileFragment : Fragment() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+
+                // Load Library for Games Owned Count
+                try {
+                    val libraryResponse = ApiClient.instance.getLibrary(userId)
+                    if (libraryResponse.isSuccessful && libraryResponse.body()?.success == true) {
+                        val gameCount = libraryResponse.body()?.games?.size ?: 0
+                        tvGamesOwned.text = gameCount.toString()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -108,7 +122,6 @@ class ProfileFragment : Fragment() {
         tvInitial.text = initial
 
         if (!imageUrl.isNullOrEmpty()) {
-            // Mengambil BASE_URL dari ApiClient (Pastikan BASE_URL di ApiClient.kt sudah PUBLIC)
             val fullUrl = if (imageUrl.startsWith("http")) imageUrl else "${ApiClient.BASE_URL}${imageUrl.removePrefix("/")}"
 
             tvInitial.visibility = View.GONE

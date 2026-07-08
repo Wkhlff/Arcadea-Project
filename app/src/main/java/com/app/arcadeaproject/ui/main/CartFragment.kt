@@ -1,6 +1,7 @@
 package com.app.arcadeaproject.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -73,8 +74,14 @@ class CartFragment : Fragment() {
                 val response = ApiClient.instance.checkout(request)
                 if (response.isSuccessful && response.body()?.success == true) {
                     dbHelper.clearCart(userId)
-                    updateCartInfo()
-                    Toast.makeText(requireContext(), "Purchase Successful! Games added to library.", Toast.LENGTH_LONG).show()
+                    
+                    // Navigate to CheckoutSuccessActivity instead of just showing a toast
+                    val intent = Intent(requireContext(), CheckoutSuccessActivity::class.java)
+                    startActivity(intent)
+                    
+                    // Optional: remove CartFragment from backstack so back button doesn't return to empty cart
+                    parentFragmentManager.popBackStack()
+
                 } else {
                     val errorMsg = response.body()?.message ?: "Checkout failed"
                     Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()

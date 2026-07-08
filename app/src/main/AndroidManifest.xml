@@ -30,6 +30,7 @@
         <activity android:name=".ui.main.DetailActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".ui.main.ProfileEditActivity" android:exported="false" />
+        <activity android:name=".ui.main.CheckoutSuccessActivity" android:exported="false" />
 
     </application>
 

@@ -3,4 +3,7 @@
     <string name="app_name">arcadeaproject</string>
     <string name="app_name_detail">Toko Game Terpercaya</string>
     <string name="nama_aplikasi">Arcadea</string>
+    <string name="checkout_success_title">Purchase Successful!</string>
+    <string name="checkout_success_desc">Your games have been added to your library.\nYou can start playing them now.</string>
+    <string name="btn_return_store">Return to Store</string>
 </resources>
