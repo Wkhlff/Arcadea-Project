@@ -36,6 +36,9 @@ interface ApiService {
     @GET("library/{id}")
     suspend fun getLibrary(@Path("id") userId: Int): Response<LibraryResponse>
 
+    @HTTP(method = "DELETE", path = "library/refund", hasBody = true)
+    suspend fun refundGame(@Body request: RefundRequest): Response<GeneralResponse>
+
     // --- Friend Routes ---
     @GET("friends/search")
     suspend fun searchUser(@Query("nama") nama: String): Response<SearchUserResponse>

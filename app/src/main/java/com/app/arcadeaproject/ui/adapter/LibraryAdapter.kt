@@ -12,8 +12,10 @@ import com.app.arcadeaproject.R
 import com.app.arcadeaproject.data.remote.model.GameResponse
 import com.bumptech.glide.Glide
 
-class LibraryAdapter(private var games: List<GameResponse>) :
-    RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
+class LibraryAdapter(
+    private var games: List<GameResponse>,
+    private val onRefundClick: (GameResponse) -> Unit
+) : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
 
     class LibraryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivGame: ImageView = view.findViewById(R.id.iv_library_game_img)
@@ -21,6 +23,7 @@ class LibraryAdapter(private var games: List<GameResponse>) :
         val tvPlayedHours: TextView = view.findViewById(R.id.tv_library_played_hours)
         val tvLastPlayed: TextView = view.findViewById(R.id.tv_library_last_played)
         val btnPlay: Button = view.findViewById(R.id.btn_library_play)
+        val btnRefund: Button = view.findViewById(R.id.btn_library_refund)
     }
 
     fun updateData(newGames: List<GameResponse>) {
@@ -38,8 +41,6 @@ class LibraryAdapter(private var games: List<GameResponse>) :
         val game = games[position]
         holder.tvTitle.text = game.judul
 
-        // Since backend library might not provide hours/last played yet,
-        // we can use placeholder text or hide them.
         holder.tvPlayedHours.text = "Ready to play"
         holder.tvLastPlayed.text = "Installed"
 
@@ -50,6 +51,10 @@ class LibraryAdapter(private var games: List<GameResponse>) :
 
         holder.btnPlay.setOnClickListener {
             Toast.makeText(it.context, "Launching ${game.judul}...", Toast.LENGTH_SHORT).show()
+        }
+
+        holder.btnRefund.setOnClickListener {
+            onRefundClick(game)
         }
     }
 
